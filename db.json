@@ -1,0 +1,18 @@
+{
+  "appointments": [
+    {
+      "id": 1,
+      "title": "Biometric Collection Appointment",
+      "date": "15th October 2025",
+      "time": "10:00 AM",
+      "location": "Visa Application Center, 123 Connaught Place, New Delhi, India"
+    },
+    {
+      "id": 2,
+      "title": "Visa Interview Appointment",
+      "date": "20th October 2025",
+      "time": "2:00 PM",
+      "location": "Embassy of Country X, 456 Embassy Road, New Delhi, India"
+    }
+  ]
+}

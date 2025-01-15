@@ -9,7 +9,10 @@ const port = 5001; // Changed port number to 5001
 app.use(bodyParser.json());
 app.use(cors());
 
-const appointmentsFilePath = path.join(__dirname, 'appointments.json');
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+const appointmentsFilePath = path.join(__dirname, 'db.json');
 
 let appointmentData = {};
 
@@ -17,14 +20,14 @@ let appointmentData = {};
 const loadAppointments = () => {
   if (fs.existsSync(appointmentsFilePath)) {
     const data = fs.readFileSync(appointmentsFilePath);
-    return JSON.parse(data);
+    return JSON.parse(data).appointments;
   }
   return [];
 };
 
 // Save appointments to JSON file
 const saveAppointments = (appointments) => {
-  fs.writeFileSync(appointmentsFilePath, JSON.stringify(appointments, null, 2));
+  fs.writeFileSync(appointmentsFilePath, JSON.stringify({ appointments }, null, 2));
 };
 
 app.post('/api/save-appointment', (req, res) => {
@@ -50,6 +53,10 @@ app.post('/api/appointments', (req, res) => {
   appointments.push(newAppointment);
   saveAppointments(appointments);
   res.status(201).send({ message: 'Appointment added successfully' });
+});
+
+app.get('/api', (req, res) => {
+  res.status(200).send({ message: 'API is working!' });
 });
 
 app.listen(port, () => {
